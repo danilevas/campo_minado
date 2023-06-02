@@ -40,7 +40,7 @@ game_over = False
 data_tempo = None
 halt = 0
 
-path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado/"
+path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado_repo/"
 imagens = [
     Image.open(path + "icones/flag resized.png"),       # 0
     Image.open(path + "icones/1.png"),                  # 1
@@ -83,7 +83,6 @@ for i in range(len(imagens)):
 num_bombas = Label(root, relief=SUNKEN, padx=tamanho_x*2, pady=tamanho_y, borderwidth=3, text="", font=(24), fg="red", bg="black")
 carinha = Label(root, relief=RAISED, padx=tamanho_x*2, pady=tamanho_y*2, borderwidth=3, bg="#BDBDBD", image=imagens_prontas[14])
 tempo = Label(root, relief=SUNKEN, padx=tamanho_x*2, pady=tamanho_y, borderwidth=3, text="0", font=(24), fg="red", bg="black")
-botao_resolve = Label(root, relief=RAISED, padx=tamanho_x, pady=tamanho_y, borderwidth=3, text="Resolver", font=(14), bg="#BDBDBD")
 
 def janela_menu():
     frame = LabelFrame(root, padx=25, pady=25)
@@ -220,12 +219,11 @@ def clique_botao(indice):
     # A label abaixa quando é clicada
     label.config(relief=SUNKEN)
     
-    if desabilitado(botoes[indice]):
-        if numeros[indice] > 0:
-            num = 0
-            for vizinho in obter_vizinhos(indice):
-                if marcado(vizinho):
-                    num += 1
+    if desabilitado(botoes[indice]) and numeros[indice] > 0:
+        num = 0
+        for vizinho in obter_vizinhos(indice):
+            if marcado(vizinho):
+                num += 1
         if num < numeros[indice]:
             global afundados
             afundados = []
@@ -454,18 +452,22 @@ def comeca_jogo(frame, dificuldade, inicio):
     
     # Colocando um menuzinho para escolher a dificuldade
     menubar = Menu(root)
-    filemenu = Menu(menubar, tearoff=0)
-    filemenu.add_command(label="Fácil", command= lambda dificuldade="facil": restart(dificuldade))
-    filemenu.add_command(label="Médio", command= lambda dificuldade="medio": restart(dificuldade))
-    filemenu.add_command(label="Difícil", command= lambda dificuldade="dificil": restart(dificuldade))
-    menubar.add_cascade(label="Dificuldade", menu=filemenu)
+    dif_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="Dificuldade", menu=dif_menu)
+    dif_menu.add_command(label="Fácil", command= lambda dificuldade="facil": restart(dificuldade))
+    dif_menu.add_command(label="Médio", command= lambda dificuldade="medio": restart(dificuldade))
+    dif_menu.add_command(label="Difícil", command= lambda dificuldade="dificil": restart(dificuldade))
+    
+    res_menu = Menu(menubar, tearoff=0)
+    res_menu.add_command(label="Resolver?", command=resolve)
+    menubar.add_cascade(label="Resolver", menu=res_menu)
     root.config(menu=menubar)
     
     if dificuldade == "facil":
         colunas = 9
         linhas = 9
         bombas = 10
-        centraliza(root, int(colunas*36), int(linhas*(36.85 + 16.2))) # tinha uma diferenciação if inicio == True 
+        centraliza(root, int(colunas*36), int(linhas*(36.85 + 11.5))) # tinha uma diferenciação if inicio == True 
     if dificuldade == "medio":
         colunas = 16
         linhas = 16
@@ -493,7 +495,6 @@ def comeca_jogo(frame, dificuldade, inicio):
     padding1 = Label(root, padx=tamanho_x/3, pady=tamanho_y/3, bg="#BDBDBD")
     padding2 = Label(root, padx=tamanho_x/3, pady=tamanho_y/3, bg="#BDBDBD")
     
-    botao_resolve.grid(row=0, column=0, columnspan=colunas)
     padding1.grid(row=1, column=0, columnspan=colunas)
     num_bombas.grid(row=2, column=0, columnspan=int(colunas/3))
     carinha.grid(row=2, column=int(colunas/3), columnspan=int(colunas/3))
@@ -504,28 +505,30 @@ def comeca_jogo(frame, dificuldade, inicio):
 
 # Resolve checando apenas os números dos quadrados à vista
 def resolve():
+    global game_over
     inicial = random.randint(0, (colunas * linhas) - 1)
     clique_botao(inicial)
     desclique_botao(inicial)
-    for i in range(linhas * colunas):
-        
-        # Marca os que só tem a quantidade certa pra marcar
-        if desabilitado(botoes[i]):
-            marcados = 0
-            candidatos = []
-            for v in obter_vizinhos(i):
-                if not desabilitado(botoes[v]) and not marcado(v):
-                    candidatos.append(v)
-                if marcado(v):
-                    marcados += 1
-            if len(candidatos) == numeros[i] - marcados:
-                for candidato in candidatos:
-                    bandeirinha(candidato)
+    while game_over == False:
+        for i in range(linhas * colunas):
             
-            # Abre os com requisito concluído
-            if len(candidatos) == 0:
-                clique_botao(i)
-                desclique_botao(i)
+            # Marca os que só tem a quantidade certa pra marcar
+            if desabilitado(botoes[i]):
+                marcados = 0
+                candidatos = []
+                for v in obter_vizinhos(i):
+                    if not desabilitado(botoes[v]) and not marcado(v):
+                        candidatos.append(v)
+                    if marcado(v):
+                        marcados += 1
+                if len(candidatos) == numeros[i] - marcados:
+                    for candidato in candidatos:
+                        root.after(1000, bandeirinha(candidato))
+                
+                # Abre os com requisito concluído
+                if len(candidatos) == 0:
+                    root.after(1000, clique_botao(i))
+                    desclique_botao(i)
 
 comeca_jogo(None, "facil", True)
 root.mainloop()
