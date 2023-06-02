@@ -20,6 +20,7 @@ from center import centraliza
 
 # Próximos passos:
 #   - Entender melhor a regra de revelação dos quadrados
+#   - Ajeitar o site!
 
 root = Tk()
 root.title("Campo Minado do Dani!")
