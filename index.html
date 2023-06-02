@@ -15,6 +15,22 @@
       margin-top: 50px;
     }
     
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    
+    .image {
+      width: 300px;
+      margin-right: 50px;
+    }
+    
+    .bio {
+      text-align: left;
+    }
+    
     .download-button {
       display: inline-block;
       padding: 10px 20px;
@@ -28,6 +44,17 @@
 </head>
 <body>
   <h1>Daniel Levacov</h1>
-  <a class="download-button" href="campo_minado.exe" download>Baixe o Campo Minado</a>
+  <div class="container">
+    <img class="image" src="icones/eu.png" alt="Daniel Levacov">
+    <div class="bio">
+      <h2>Programador</h2>
+      <p>
+        Atualmente no 9º período do curso de Ciência da Computação da UFRJ<br><br>
+        Especialidades:
+        <li>Python</li><li>SQL</li>
+      </p>
+      <a class="download-button" href="campo_minado.rar" download>Baixar Campo Minado</a>
+    </div>
+  </div>
 </body>
 </html>
