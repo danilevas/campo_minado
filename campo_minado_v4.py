@@ -15,10 +15,10 @@ from center import centraliza
 #   - Ajeitar o tamanho da casa marcada que diminui um pouquinho
 #   - Colocar popups quando ganha e perde
 #   - Colocar um botão para reiniciar após esses popups
-
-# Próximos passos:
 #   - Escolher nível/tamanho na tela, calcular bombas automaticamente
 #   - Contador de bombas marcadas e de tempo corrido
+
+# Próximos passos:
 #   - Entender melhor a regra de revelação dos quadrados
 
 root = Tk()
@@ -42,7 +42,8 @@ halt = 0
 primeira = True
 resolvidos = []
 
-path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado_repo/"
+path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado_exe/"
+root.iconbitmap(path + '/icones/bomba.ico')
 imagens = [
     Image.open(path + "icones/flag resized.png"),       # 0
     Image.open(path + "icones/1.png"),                  # 1
@@ -235,6 +236,8 @@ def clique_botao(indice):
                     afundados.append(botoes[vizinho])
 
 def desclique_botao(indice):
+    global primeira
+    primeira = False
     label = botoes[indice]
     carinha.configure(image=imagens_prontas[14])
     
@@ -474,7 +477,10 @@ def comeca_jogo(frame, dificuldade, inicio):
         colunas = 9
         linhas = 9
         bombas = 10
-        centraliza(root, int(colunas*36), int(linhas*(36.85 + 11.5))) # tinha uma diferenciação if inicio == True 
+        if inicio == True:
+            centraliza(root, int(colunas*36), int(linhas*(36.85 + 11.8 + 2.2)))
+        else:
+            centraliza(root, int(colunas*36), int(linhas*(36.85 + 11.8)))
     if dificuldade == "medio":
         colunas = 16
         linhas = 16
@@ -514,6 +520,7 @@ def comeca_jogo(frame, dificuldade, inicio):
 def resolve():
     global primeira
     if not primeira:
+        mudei = False
         for i in range(linhas * colunas):
             
             # Marca os que só tem a quantidade certa pra marcar
@@ -529,6 +536,7 @@ def resolve():
                     for candidato in candidatos:
                         bandeirinha(candidato)
                     resolvidos.append(i)
+                    mudei = True
                     break
                 
                 # Abre os com requisito concluído
@@ -536,11 +544,20 @@ def resolve():
                     clique_botao(i)
                     desclique_botao(i)
                     resolvidos.append(i)
+                    mudei = True
                     break
                 
                 # Se já estiver a quantidade certa marcada, está resolvido
                 if len(candidatos) == 0:
                     resolvidos.append(i)
+        
+        # Se não tiver dado break em nenhum outro momento é pq não tem o que fazer usando as regras, então
+        # ele vai marcar uma bomba aleatória para ajudar
+        if mudei == False:
+            for bomba in lugar_bombas:
+                if not marcado(bomba):
+                    marca(bomba)
+                    break
 
     if primeira:
         inicial = random.randint(0, (colunas * linhas) - 1)
