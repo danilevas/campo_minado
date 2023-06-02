@@ -43,7 +43,7 @@ primeira = True
 resolvidos = []
 
 path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado_repo/"
-root.iconbitmap(path + '/icones/bomba.ico')
+root.iconbitmap(path + 'icones/bomba.ico')
 imagens = [
     Image.open(path + "icones/flag resized.png"),       # 0
     Image.open(path + "icones/1.png"),                  # 1
