@@ -39,6 +39,8 @@ afundados = []
 game_over = False
 data_tempo = None
 halt = 0
+primeira = True
+resolvidos = []
 
 path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado_repo/"
 imagens = [
@@ -437,6 +439,11 @@ def coloca_numeros():
     clock(1)
 
 def comeca_jogo(frame, dificuldade, inicio):
+    global primeira
+    global resolvidos
+    primeira = True
+    resolvidos = []
+    
     if frame != None:
         frame.destroy()
     
@@ -505,15 +512,12 @@ def comeca_jogo(frame, dificuldade, inicio):
 
 # Resolve checando apenas os números dos quadrados à vista
 def resolve():
-    global game_over
-    inicial = random.randint(0, (colunas * linhas) - 1)
-    clique_botao(inicial)
-    desclique_botao(inicial)
-    while game_over == False:
+    global primeira
+    if not primeira:
         for i in range(linhas * colunas):
             
             # Marca os que só tem a quantidade certa pra marcar
-            if desabilitado(botoes[i]):
+            if desabilitado(botoes[i]) and numeros[i] > 0 and (i not in resolvidos):
                 marcados = 0
                 candidatos = []
                 for v in obter_vizinhos(i):
@@ -521,14 +525,28 @@ def resolve():
                         candidatos.append(v)
                     if marcado(v):
                         marcados += 1
-                if len(candidatos) == numeros[i] - marcados:
+                if len(candidatos) == numeros[i] - marcados and len(candidatos) != 0:
                     for candidato in candidatos:
-                        root.after(1000, bandeirinha(candidato))
+                        bandeirinha(candidato)
+                    resolvidos.append(i)
+                    break
                 
                 # Abre os com requisito concluído
-                if len(candidatos) == 0:
-                    root.after(1000, clique_botao(i))
+                if numeros[i] - marcados == 0 and len(candidatos) != 0:
+                    clique_botao(i)
                     desclique_botao(i)
+                    resolvidos.append(i)
+                    break
+                
+                # Se já estiver a quantidade certa marcada, está resolvido
+                if len(candidatos) == 0:
+                    resolvidos.append(i)
+
+    if primeira:
+        inicial = random.randint(0, (colunas * linhas) - 1)
+        clique_botao(inicial)
+        desclique_botao(inicial)
+        primeira = False
 
 comeca_jogo(None, "facil", True)
 root.mainloop()
