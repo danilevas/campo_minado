@@ -85,9 +85,12 @@ def maneja_exe():
         os.rmdir(path + "dist")
 
 def zipa_files():
-    with zipfile.ZipFile('campo_minado_files.zip', 'w') as f:
+    with zipfile.ZipFile('arquivos_campo_minado.zip', 'w') as f:
         for file in glob.glob('campo_minado_files/*'):
             f.write(file)
+
+def zipa_files_simples(output_filename, dir_name):
+    shutil.make_archive(output_filename, 'zip', dir_name)
 
 def unzipa_files(arquivo_zip):
     with zipfile.ZipFile(arquivo_zip, 'r') as zip_ref:
@@ -99,10 +102,12 @@ if os.path.exists(path + "campo_minado.exe"):
 os.system('pyinstaller.exe --onefile --icon=icones/bomba.ico campo_minado.pyw')
 maneja_exe()
 movimenta()
-if os.path.exists(path + "campo_minado_files.zip"):
-    os.remove(path + "campo_minado_files.zip")
-zipa_files()
-shutil.copy(path + "campo_minado_files.zip", path + "campo_minado_repo")
+
+if os.path.exists(path + "arquivos_campo_minado.zip"):
+    os.remove(path + "arquivos_campo_minado.zip")
+zipa_files_simples("arquivos_campo_minado", path + "campo_minado_files")
+shutil.copy(path + "arquivos_campo_minado.zip", path + "campo_minado_repo")
+
 if os.path.exists(path + "campo_minado_repo/campo_minado_files"):
     deleta_cont_pasta(path + "campo_minado_repo/campo_minado_files")
     os.rmdir(path + "campo_minado_repo/campo_minado_files")
