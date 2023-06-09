@@ -6,10 +6,10 @@ import glob
 path = "C:/Programas/Projetos Pessoais/tkinter/"
 
 def copia_pra_fora():
-    if os.path.exists(path + "campo_minado_files"):
-        deleta_cont_pasta(path + "campo_minado_files")
+    if os.path.exists(path + "arquivos_campo_minado/campo_minado_files"):
+        deleta_cont_pasta(path + "arquivos_campo_minado/campo_minado_files")
     else:
-        os.mkdir(path + "campo_minado_files")
+        os.mkdir(path + "arquivos_campo_minado/campo_minado_files")
     
     if os.path.exists(path + "icones"):
         deleta_cont_pasta(path + "icones")
@@ -32,17 +32,17 @@ def copia_pra_fora():
     # shutil.copy(path + "campo_minado_repo/campo_minado.exe", path)
     
 def movimenta():
-    copia_pasta(path + "icones", "icones", path + "campo_minado_files")
+    copia_pasta(path + "icones", "icones", path + "arquivos_campo_minado/campo_minado_files")
     deleta_cont_pasta(path + "icones")
     os.rmdir(path + "icones")
-    copia_pasta(path + "sons", "sons", path + "campo_minado_files")
+    copia_pasta(path + "sons", "sons", path + "arquivos_campo_minado/campo_minado_files")
     deleta_cont_pasta(path + "sons")
     os.rmdir(path + "sons")
-    shutil.copy(path + "campo_minado.pyw", path + "campo_minado_files")
+    shutil.copy(path + "campo_minado.pyw", path + "arquivos_campo_minado/campo_minado_files")
     os.remove(path + "campo_minado.pyw")
-    shutil.copy(path + "center.py", path + "campo_minado_files")
+    shutil.copy(path + "center.py", path + "arquivos_campo_minado/campo_minado_files")
     os.remove(path + "center.py")
-    shutil.copy(path + "campo_minado.exe", path + "campo_minado_files")
+    shutil.copy(path + "campo_minado.exe", path + "arquivos_campo_minado/campo_minado_files")
     os.remove(path + "campo_minado.exe")
 
 def copia_pasta(path_pasta, nome_pasta, destino):
@@ -86,7 +86,7 @@ def maneja_exe():
 
 def zipa_files():
     with zipfile.ZipFile('arquivos_campo_minado.zip', 'w') as f:
-        for file in glob.glob('campo_minado_files/*'):
+        for file in glob.glob('arquivos_campo_minado/*'):
             f.write(file)
 
 def zipa_files_simples(output_filename, dir_name):
@@ -105,10 +105,11 @@ movimenta()
 
 if os.path.exists(path + "arquivos_campo_minado.zip"):
     os.remove(path + "arquivos_campo_minado.zip")
-zipa_files_simples("arquivos_campo_minado", path + "campo_minado_files")
+
+zipa_files_simples("arquivos_campo_minado", path + "arquivos_campo_minado")
 shutil.copy(path + "arquivos_campo_minado.zip", path + "campo_minado_repo")
 
 if os.path.exists(path + "campo_minado_repo/campo_minado_files"):
     deleta_cont_pasta(path + "campo_minado_repo/campo_minado_files")
     os.rmdir(path + "campo_minado_repo/campo_minado_files")
-copia_pasta(path + "campo_minado_files", "campo_minado_files", path + "campo_minado_repo")
+copia_pasta(path + "arquivos_campo_minado/campo_minado_files", "campo_minado_files", path + "campo_minado_repo")
