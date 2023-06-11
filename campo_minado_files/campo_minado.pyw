@@ -49,7 +49,7 @@ primeira = True
 resolvidos = []
 
 if ip == "187.14.123.31":
-    path = "campo_minado_repo/"
+    path = "C:/Programas/Projetos Pessoais/tkinter/campo_minado_repo/"
 else:
     path = ""
 
