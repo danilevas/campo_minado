@@ -5,6 +5,7 @@ from datetime import datetime
 from PIL import ImageTk, Image
 import pygame
 from center import centraliza
+from requests import get
 
 # Feito: 
 #   - A primeira casa que o jogador clica sempre ser vazia para abrir o jogo, ou seja, só colocar as bombas e números depois dele clicar
@@ -17,14 +18,18 @@ from center import centraliza
 #   - Colocar um botão para reiniciar após esses popups
 #   - Escolher nível/tamanho na tela, calcular bombas automaticamente
 #   - Contador de bombas marcadas e de tempo corrido
-
-# Próximos passos:
 #   - Entender melhor a regra de revelação dos quadrados
 #   - Ajeitar o site!
+
+# Próximos passos:
+#   - Centralizar direitinho as janelas quando muda a dificuldade (a inicial ta funcionando)
+#   - Highscore!
+#   - Aumentar o som do tic
 
 root = Tk()
 root.title("Campo Minado do Dani!")
 pygame.mixer.init()
+ip = get('https://api.ipify.org').content.decode('utf8')
 
 tamanho_x = 15
 tamanho_y = 7.5
@@ -43,7 +48,11 @@ halt = 0
 primeira = True
 resolvidos = []
 
-path = ""
+if ip == "187.14.123.31":
+    path = "campo_minado_repo/"
+else:
+    path = ""
+
 root.iconbitmap(path + 'icones/bomba.ico')
 imagens = [
     Image.open(path + "icones/flag resized.png"),       # 0
@@ -322,20 +331,19 @@ def checa_ganhou():
 
 def janela_vitoria():
     top = Toplevel()
-    top.title = "VITÓRIA"
+    top.title = "DERROTA"
     top.configure(bg="#BDBDBD")
     
-    # frame = LabelFrame(top, padx=25, pady=25)
-    # frame.pack(padx=10, pady=10)
-    titulo = Label(top, text="PARABÉNS VOCÊ GANHOU!", bg="#BDBDBD")
-    espaco = Label(top, bg="#BDBDBD")
+    frame = LabelFrame(top, padx=25, pady=25, bg="#BDBDBD")
+    frame.pack(padx=10, pady=10)
+    titulo = Label(frame, text="PARABÉNS, VOCÊ GANHOU!", bg="#BDBDBD", font=32)
+    espaco = Label(frame, bg="#BDBDBD")
+    btn1 = Button(frame, text="aeeee vamoo :)", bg="#BDBDBD", command= lambda: top.destroy())
     
-    btn1 = Button(top, bg="#BDBDBD", text="OK! Sou brabo hehe", command= lambda: top.destroy())
-    
-    titulo.grid(row=0, column=0, columnspan=3)
-    espaco.grid(row=1, column=0, columnspan=3)
-    btn1.grid(row=2,column=0)
-    centraliza(top, 250, 140)
+    titulo.grid(row=0, column=0, columnspan=colunas)
+    espaco.grid(row=3, column=0, columnspan=colunas)
+    btn1.grid(row=5,column=0, columnspan=colunas)
+    centraliza(top, 310, 140)
 
 def perdeu(indice):
     carinha.configure(image=imagens_prontas[16])
@@ -368,17 +376,22 @@ def janela_derrota():
     top.title = "DERROTA"
     top.configure(bg="#BDBDBD")
     
-    frame = LabelFrame(top, padx=25, pady=25)
+    frame = LabelFrame(top, padx=25, pady=25, bg="#BDBDBD")
     frame.pack(padx=10, pady=10)
-    titulo = Label(frame, text="INFELIZMENTE VOCÊ PERDEU") # colocar uma frase inspiracional em itálico
-    espaco = Label(frame)
+    titulo = Label(frame, text="VOCÊ PERDEU", bg="#BDBDBD", font=32)
+    frase = Label(frame, text="A persistência realiza o impossível", bg="#BDBDBD", font="Helvetica 8 italic") # frase inspiracional em itálico
+    autor = Label(frame, text="Provérbio Chinês", bg="#BDBDBD", font="Helvetica 8") # autor da frase inspiracional
+    espaco = Label(frame, bg="#BDBDBD")
     
-    btn1 = Button(frame, text=":( na próxima eu consigo", command= lambda: top.destroy())
     
-    titulo.grid(row=0, column=0, columnspan=3)
-    espaco.grid(row=1, column=0, columnspan=3)
-    btn1.grid(row=3,column=0)
-    centraliza(top, 250, 140)
+    btn1 = Button(frame, text=":( na próxima eu consigo", bg="#BDBDBD", command= lambda: top.destroy())
+    
+    titulo.grid(row=0, column=0, columnspan=colunas)
+    frase.grid(row=1, column=0, columnspan=colunas)
+    autor.grid(row=2, column=0, columnspan=colunas)
+    espaco.grid(row=3, column=0, columnspan=colunas)
+    btn1.grid(row=5,column=0, columnspan=colunas)
+    centraliza(top, 250, 180)
 
 def clique_carinha(event):
     event.widget.configure(relief=SUNKEN)
