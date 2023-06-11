@@ -6,6 +6,7 @@ from PIL import ImageTk, Image
 import pygame
 from center import centraliza
 from requests import get
+import os
 
 # Feito: 
 #   - A primeira casa que o jogador clica sempre ser vazia para abrir o jogo, ou seja, só colocar as bombas e números depois dele clicar
@@ -53,26 +54,43 @@ if ip == "187.14.123.31":
 else:
     path = ""
 
-root.iconbitmap(path + 'icones/bomba.ico')
+def abre_imagem(nome, formato):
+    path_sem_formato = path + "icones/" + nome
+    path_formato = path + "icones/" + nome + "." + formato
+    
+    if os.path.exists(path_sem_formato):
+        return Image.open(path_sem_formato)
+    elif os.path.exists(path_formato):
+        return Image.open(path_formato)
+    else:
+        raise Exception("Desculpe, a imagem " + nome + "." + formato + " não foi encontrada")
+
+if os.path.exists(path + 'icones/bomba_icone.ico'):
+    root.iconbitmap(path + 'icones/bomba_icone.ico')
+elif os.path.exists(path + 'icones/bomba_icone'):
+    root.iconbitmap(path + 'icones/bomba_icone')
+else:
+    raise Exception("Desculpe, o arquivo bomba_icone.ico não foi encontrado")
+
 imagens = [
-    Image.open(path + "icones/flag resized.png"),       # 0
-    Image.open(path + "icones/1.png"),                  # 1
-    Image.open(path + "icones/2.png"),                  # 2
-    Image.open(path + "icones/3.png"),                  # 3
-    Image.open(path + "icones/4.png"),                  # 4
-    Image.open(path + "icones/5.png"),                  # 5
-    Image.open(path + "icones/6.png"),                  # 6
-    Image.open(path + "icones/7.png"),                  # 7
-    Image.open(path + "icones/8.png"),                  # 8
-    Image.open(path + "icones/fundo.png"),              # 9
-    Image.open(path + "icones/fundo.png"),              # 10
-    Image.open(path + "icones/bomba.png"),              # 11
-    Image.open(path + "icones/bomba red.png"),          # 12
-    Image.open(path + "icones/bomba X.png"),            # 13
-    Image.open(path + "icones/carinha feliz.png"),      # 14
-    Image.open(path + "icones/carinha ooo.png"),        # 15
-    Image.open(path + "icones/carinha morta.png"),      # 16
-    Image.open(path + "icones/carinha oculos.png"),     # 17
+    abre_imagem("flag resized", "png"),              # 0
+    abre_imagem("1", "png"),                  # 1
+    abre_imagem("2", "png"),                  # 2
+    abre_imagem("3", "png"),                  # 3
+    abre_imagem("4", "png"),                  # 4
+    abre_imagem("5", "png"),                  # 5
+    abre_imagem("6", "png"),                  # 6
+    abre_imagem("7", "png"),                  # 7
+    abre_imagem("8", "png"),                  # 8
+    abre_imagem("fundo", "png"),              # 9
+    abre_imagem("fundo", "png"),              # 10
+    abre_imagem("bomba", "png"),              # 11
+    abre_imagem("bomba red", "png"),          # 12
+    abre_imagem("bomba X", "png"),            # 13
+    abre_imagem("carinha feliz", "png"),      # 14
+    abre_imagem("carinha ooo", "png"),        # 15
+    abre_imagem("carinha morta", "png"),      # 16
+    abre_imagem("carinha oculos", "png"),     # 17
 ]
 imagens_prontas = []
 

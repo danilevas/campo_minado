@@ -80,7 +80,10 @@ def maneja_exe():
     if os.path.exists(path + "campo_minado.spec"):
         os.remove(path + "campo_minado.spec")
     if os.path.exists(path + "dist"):
-        shutil.copy(path + "dist/campo_minado.exe", path)
+        if os.path.exists(path + "dist/campo_minado.exe.notanexecutable"):
+            os.remove(path + "dist/campo_minado.exe.notanexecutable")
+        if os.path.exists(path + "dist/campo_minado.exe"):
+            shutil.copy(path + "dist/campo_minado.exe", path)
         deleta_cont_pasta(path + "dist")
         os.rmdir(path + "dist")
 
@@ -96,10 +99,11 @@ def unzipa_files(arquivo_zip):
     with zipfile.ZipFile(arquivo_zip, 'r') as zip_ref:
         zip_ref.extractall()
 
+maneja_exe()
 copia_pra_fora()
 if os.path.exists(path + "campo_minado.exe"):
     os.remove(path + "campo_minado.exe")
-os.system('pyinstaller.exe --onefile --icon=icones/bomba.ico campo_minado.pyw')
+os.system('pyinstaller.exe --onefile --icon=icones/bomba_icone.ico campo_minado.pyw')
 maneja_exe()
 movimenta()
 
