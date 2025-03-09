@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html>
 <head>
   <meta charset="UTF-8">
-  <title>Daniel Levacov</title>
+  <title>Campo Minado Clássico - Daniel Levacov</title>
   <style>
     body {
       background-color: #111111;
@@ -10,51 +8,119 @@
       font-family: Arial, sans-serif;
       text-align: center;
     }
-    
+
     h1 {
       margin-top: 50px;
     }
-    
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 50px;
-    }
-    
-    .image {
-      width: 300px;
-      margin-right: 50px;
-    }
-    
-    .bio {
+
+    .bio, .instrucoes {
       text-align: left;
+      max-width: 800px; /* Aumentando a largura da coluna */
+      margin: 20px auto;
     }
-    
+
     .download-button {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 20px 40px;
       background-color: #444444;
       color: #FFFFFF;
       text-decoration: none;
       border-radius: 5px;
       margin-top: 20px;
+      font-size: 24px;
+    }
+
+    h2 {
+      color: #FFFFFF;
+    }
+
+    h3 {
+      margin-top: 10px;
+      color: #FFFFFF;
+    }
+
+    ul {
+      margin-top: 10px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Espaçamento entre as imagens */
+      margin-top: 30px;
+    }
+
+    .image {
+      width: 150px; /* Diminuindo o tamanho da carinha */
+      margin: 0;
+    }
+
+    .new-image {
+      width: 150px; /* Tamanho da nova imagem */
     }
   </style>
 </head>
 <body>
-  <h1>Daniel Levacov</h1>
-  <div class="container">
-    <img class="image" src="icones/eu.png" alt="Daniel Levacov">
-    <div class="bio">
-      <h2>Analista de Dados</h2>
-      <p>
-        Cursando Ciência da Computação na UFRJ<br><br>
-        /*Especialidades:
-        <li>Python</li><li>SQL</li>*/
-      </p>
-      <a class="download-button" href="arquivos_campo_minado.zip" download>Baixar Campo Minado</a>
-    </div>
+  <h1>Campo Minado Clássico</h1>
+  <h2>Daniel Levacov</h2>
+
+  <div class="image-container">
+    <img class="image" src="icones/bomba.png" alt="💣">
+    <!-- <img class="new-image" src="icones/eu_profissa.png" alt="Daniel Levacov"> -->
+  </div>
+
+  <div class="instrucoes">
+    <h2>🛠️ Como Rodar o Jogo</h2>
+    <ul>
+      <li><strong>Clique no botão abaixo</strong> para baixar o arquivo .zip com todos os arquivos do jogo</li>
+      <li>Seu computador pode reconhecer o arquivo como suspeito: <strong>se for o caso, sinalize que quer mantê-lo</strong></li>
+      <li>Extraia "arquivos_campo_minado.zip", e ele gerará a pasta <strong>"campo_minado_files"</strong></li>
+      <li>Abra essa pasta, e abra o arquivo <strong>"campo_minado.exe"</strong> (pode aparecer só como "campo_minado") com o ícone da bomba</li>
+      <li>Novamente seu sistema operacional pode tentar bloquear o executável, clique em "Mais informações" -> <strong>"Executar assim mesmo"</strong></li>
+      <li>Divirta-se! 😄</li>
+    </ul>
+  </div>
+
+  <a class="download-button" href="arquivos_campo_minado.zip" download>Baixar Jogo!</a>
+
+  <div class="bio">
+    <h2>💣 Campo Minado</h2>
+    <p>Eu sou um grande fã de campo minado. Desde quando eu via minha mãe jogando sem entender nada, até quando eu jogava para me distrair no ano do vestibular, eu sempre fui fascinado pela simplicidade desse jogo tão icônico.</p>
+    <p>Este é uma réplica da versão mais clássica do jogo de <strong>Campo Minado</strong>, desenvolvida em Python com interface gráfica utilizando <strong>Tkinter</strong>. A ideia era replicar a experiência da versão mais emblemática do jogo, tanto na experiência de jogabilidade quanto na experiência sonora e visual.</p>
+    <p>O jogo possui mecânicas aprimoradas para uma melhor experiência do usuário, incluindo sons, contadores e diferentes níveis de dificuldade.</p>
+    
+    <h3>🎮 Funcionalidades Clássicas</h3>
+    <ul>
+      <li><strong>Primeira jogada segura</strong>: a primeira casa clicada nunca conterá uma bomba</li>
+      <li><strong>Revelação automática</strong>: ao clicar em um número já completo, os vizinhos são revelados</li>
+      <li><strong>Sons imersivos</strong>: efeitos sonoros para clique e explosões</li>
+      <li><strong>Popups de feedback</strong>: mensagens ao vencer ou perder</li>
+      <li><strong>Modo de dificuldade</strong>: escolha o tamanho do tabuleiro e a quantidade de bombas</li>
+      <li><strong>Contadores dinâmicos</strong>: exibição do tempo decorrido e número de bombas marcadas</li>
+    </ul>
+
+    <h3>🆕 Funcionalidades e Atributos Novos</h3>
+    <ul>
+      <li><strong>Resolvedor Automático</strong>: está com muita dificuldade para prosseguir? Com essa funcionalidade, você pode receber uma ajudinha do jogo para marcar casas que com certeza são bombas!</li>
+      <li><strong>Músicas ORIGINAIS</strong>: músicas originais para as telas de derrota e vitória criadas com o uso de Ableton Live</li>
+    </ul>
+
+    <h3>🖥️ Tecnologias Utilizadas</h3>
+    <ul>
+      <li><strong>Python</strong></li>
+      <li><strong>Tkinter</strong> (interface gráfica)</li>
+      <li><strong>PIL (Pillow)</strong> (manipulação de imagens)</li>
+      <li><strong>Pygame</strong> (efeitos sonoros)</li>
+      <li><strong>Ableton Live</strong> (para a produção das músicas)</li>
+    </ul>
+  </div>
+
+  <div class="image-container">
+    <img class="image" src="icones/carinha oculos.png" alt="😎">
+    <!-- <img class="new-image" src="icones/eu_profissa.png" alt="Daniel Levacov"> -->
   </div>
 </body>
-</html>
