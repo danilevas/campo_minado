@@ -8,7 +8,8 @@ de campo minadoO jogo possui mecânicas aprimoradas para uma melhor experiência
 ## 🎮 Funcionalidades Clássicas
 
 ✅ **Primeira jogada segura**: a primeira casa clicada nunca conterá uma bomba
-✅ **Revelação automática**: ao clicar em um número já completo, os vizinhos são revelados
+
+✅ **Revelação automática**: ao clicar em um número já completo, os vizinhos são revelados\n
 ✅ **Sons imersivos**: efeitos sonoros para clique e explosões
 ✅ **Popups de feedback**: mensagens ao vencer ou perder
 ✅ **Modo de dificuldade**: escolha o tamanho do tabuleiro e a quantidade de bombas
