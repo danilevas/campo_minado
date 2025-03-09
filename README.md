@@ -9,14 +9,20 @@ de campo minadoO jogo possui mecânicas aprimoradas para uma melhor experiência
 
 ✅ **Primeira jogada segura**: a primeira casa clicada nunca conterá uma bomba
 
-✅ **Revelação automática**: ao clicar em um número já completo, os vizinhos são revelados\n
+✅ **Revelação automática**: ao clicar em um número já completo, os vizinhos são revelados
+
 ✅ **Sons imersivos**: efeitos sonoros para clique e explosões
+
 ✅ **Popups de feedback**: mensagens ao vencer ou perder
+
 ✅ **Modo de dificuldade**: escolha o tamanho do tabuleiro e a quantidade de bombas
+
 ✅ **Contadores dinâmicos**: exibição do tempo decorrido e número de bombas marcadas
 
 ## 🆕 Funcionalidades e Atributos Novos
+
 ✅ **Resolvedor Automático**: está com muita dificuldade para prosseguir? Com essa funcionalidade, você pode receber uma ajudinha do jogo para marcar casas que com certeza são bombas!
+
 ✅ **Músicas ORIGINAIS**: músicas originais para as telas de derrota e vitória criadas com o uso de Ableton Live
 
 ## 🛠️ Como Executar
@@ -30,4 +36,3 @@ FALTA
 - **PIL (Pillow)** (manipulação de imagens)
 - **Pygame** (efeitos sonoros)
 - **Ableton Live** (para a produção das músicas)
-
